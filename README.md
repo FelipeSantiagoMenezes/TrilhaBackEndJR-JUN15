@@ -1,3 +1,6 @@
-![Código Certo Coders](https://utfs.io/f/3b2340e8-5523-4aca-a549-0688fd07450e-j4edu.jfif)
-
 # Em desenvolvimento
+
+## Como executar
+1. Ter o poetry instalado
+2. Para rodar em modo de desenvolvimento: `task run`
+3. Para executar os testes: `task test`
