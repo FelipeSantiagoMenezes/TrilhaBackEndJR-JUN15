@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from fastapi import FastAPI, HTTPException
 
-from src.models.schemas import Hello, User, UserModel
+from src.models.schemas import BaseUserSchema, Hello, UserSchema
 
 app = FastAPI()
 
@@ -20,8 +20,8 @@ def hello():
     return {'mensage': 'Hello, world!'}
 
 
-@app.post('/users/', response_model=UserModel)
-def create_user(user: User):
+@app.post('/users/', response_model=BaseUserSchema)
+def create_user(user: UserSchema):
     if user in usuarios.values():
         raise HTTPException(
             HTTPStatus.BAD_REQUEST, detail='Usuario já existente.'
@@ -30,7 +30,7 @@ def create_user(user: User):
     return user
 
 
-@app.get('/users/{id}', response_model=UserModel)
+@app.get('/users/{id}', response_model=BaseUserSchema)
 def read_user(id: int):
     try:
         user = usuarios.get(id)
@@ -42,7 +42,7 @@ def read_user(id: int):
 
 
 @app.put('/users/{id}')
-def put_user(id: int, user: UserModel):
+def put_user(id: int, user: BaseUserSchema):
     try:
         usuarios[id] = user
         return user
@@ -52,7 +52,7 @@ def put_user(id: int, user: UserModel):
         )
 
 
-@app.delete('/users/{id}', response_model=UserModel)
+@app.delete('/users/{id}', response_model=BaseUserSchema)
 def delete_user(id: int):
     try:
         user = usuarios.get(id)
