@@ -1,13 +1,23 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
-class BaseUserSchema(BaseModel):
+class PublicUserSchema(BaseModel):
     username: str
     email: EmailStr
+    id: int
+    model_config = ConfigDict(from_attributes=True)
 
 
-class UserSchema(BaseUserSchema):
+class UserSchema(BaseModel):
+    username: str
+    email: EmailStr
     password: str
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ListUsersSchema(BaseModel):
+    users: list[PublicUserSchema]
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TarefaSchema(BaseModel):
